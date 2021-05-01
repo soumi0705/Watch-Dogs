@@ -21,4 +21,5 @@ Installation and Environtment Setup
 
 Working
 -------
-Video uploaded [here](https://youtu.be/QZOFa30ir1I) 
+Video uploaded [here]() 
+Link to Frontend Tester. [here](https://watch-dog07.herokuapp.com/)
