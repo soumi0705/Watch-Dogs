@@ -1,4 +1,4 @@
-Team-Nuvs - Watch Dogs
+Team-2Nuvs - Watch Dogs
 ========
 Installation and Environtment Setup
 ----------------------------------
