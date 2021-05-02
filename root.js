@@ -16,7 +16,7 @@ request(url, function (err, response, body) {
       if(weather.main == undefined){
         res.render('index', {weather: null, error: 'Error, please try again'});
       } else {
-        let weatherText = `It's ${weather.main.temp} degrees Celcius with ${weather.weather[0].main} in ${weather.name}`;
+        let weatherText = `It's ${weather.main.temp} degrees Celcius with ${weather.weather[0].main} in ${weather.name}!`;
         res.render('index', {weather: weatherText, error: null});
       }
     }
