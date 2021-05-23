@@ -103,4 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
+#ignore vscode settings
 .vscode/settings.json
+
+#ignore the hit and trial file
+Maid_Monitoring/check_B_Hit.ipynb
