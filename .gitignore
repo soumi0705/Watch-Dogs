@@ -108,3 +108,9 @@ dist
 
 #ignore the hit and trial file
 Maid_Monitoring/check_B_Hit.ipynb
+
+#
+Maid_Monitoring/Person_Movement_Monitoring.ipynb
+
+#
+Maid_Monitoring/maid_monitoring.pkl
