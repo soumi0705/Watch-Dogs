@@ -6,7 +6,8 @@
 # The above will handle all files NOT found below
 #
 
-*.ipynb linguist-language=Python
+*.py linguist-language=python
+*.ipynb linguist-documentation
 
 #
 ## Documents
