@@ -26,6 +26,8 @@ $node app.js
 ```
 5. For MQTT you can use HiveMQ public server (Already Configured)
 
+_More Features such as Face Recognition and HouseHold Help monitoring being added_
+
 Working
 -------
 Video uploaded [here]() \
