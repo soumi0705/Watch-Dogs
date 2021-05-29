@@ -9,7 +9,7 @@
 1. Install Node.js
 2. Using Command Line in the Directory of this project
 ```
-npm i
+$npm i
 ```
 3. Now Install Node-Red in you system
     - run Node-Red from terminal using 
