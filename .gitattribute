@@ -5,7 +5,9 @@
 #
 # The above will handle all files NOT found below
 #
-*.ipynb linguist-detectable=false
+
+*.ipynb linguist-language=Python
+
 #
 ## Documents
 #
