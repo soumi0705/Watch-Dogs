@@ -16,7 +16,7 @@ username = ''
 password = ''
 
 # Actual Working Beyond This Point
-with open('Maid_Monitoring/maid_monitoring.pkl', 'rb') as fin:
+with open('maid_monitoring.pkl', 'rb') as fin:
     print("Model Loaded")
     model = pickle.load(fin)
 
