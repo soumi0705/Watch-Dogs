@@ -3,10 +3,10 @@ import numpy as np
 import os 
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read('Face-Recognition/FacialRecognition/trainer/trainer.yml')
+recognizer.read('trainer/trainer.yml')
 cascadePath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascadePath)
-test2 = faceCascade.load('Face-Recognition/FacialRecognition/haarcascade_frontalface_default.xml')
+test2 = faceCascade.load('haarcascade_frontalface_default.xml')
 print(test2)
 font = cv2.FONT_HERSHEY_SIMPLEX
 

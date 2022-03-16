@@ -6,7 +6,7 @@ cam.set(3, 640) # set video width
 cam.set(4, 480) # set video height
 
 face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-test2 = face_detector.load('Face-Recognition/FacialRecognition/haarcascade_frontalface_default.xml')
+test2 = face_detector.load('haarcascade_frontalface_default.xml')
 print(test2)
 # For each person, enter one numeric face id
 face_id = input('\n enter user id end press <return> ==>  ')
@@ -35,7 +35,7 @@ while(True):
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
     if k == 27:
         break
-    elif count >= 30: # Take 30 face sample and stop video
+    elif count >= 100: # Take 100 face sample and stop video
          break
 
 # Do a bit of cleanup
