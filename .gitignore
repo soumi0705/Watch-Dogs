@@ -114,3 +114,7 @@ Maid_Monitoring/Person_Movement_Monitoring.ipynb
 
 #
 Maid_Monitoring/maid_monitoring.pkl
+
+#Environment File and AES Technique
+aes.txt
+.env

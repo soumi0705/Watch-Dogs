@@ -178,7 +178,7 @@
             .dining-room {
               fill: silver;
               stroke: black;
-              vector-effect: non-scaling-stroke;
+
               stroke-width: 1px;
             }
 
@@ -229,8 +229,8 @@
         <use xlink:href="#f0eb" x="-731.3285522460938" y="419.9472351074221" width="91.15" height="132.58" id="light_wc"
           onclick="toggle_(this.id)" style="fill:silver;"
           transform="matrix(0.365213 0.00506777 -0.00506777 0.365213 390.134 235.48)" />
-        <g style="fill:silver; stroke:black; vector-effect:non-scaling-stroke;stroke-width:1px;" id="light_out"
-          onclick="toggle_(this.id)" transform="matrix(-0.0098262 -0.301115 0.301115 -0.0098262 24.2664 423.975)">
+        <g style="fill:silver; stroke:black;" id="light_out" onclick="toggle_(this.id)"
+          transform="matrix(-0.0098262 -0.301115 0.301115 -0.0098262 24.2664 423.975)">
           <path
             d="M-154.218971,39.611192c-0.6,13.2,5.9,24.9,16,31.7v14.1h40v-14.1c9.6-6.5,16-17.5,16-29.9c0-20.3-16.7-36.6-37.1-36c-18.6,0.6-8.263787,42.965813-34.8,34.2Z"
             class="gate" />
@@ -253,9 +253,8 @@
         </g>
         <path
           d="M-28.902301,-242.983517l-24.8,21.9v-22.2c0,-5.4,-4.4,-9.8,-9.8,-9.8h-68.4c-5.4,0,-9.8,4.4,-9.8,9.8v76.4c0,5.4,4.4,9.8,9.8,9.8h68.4c5.4,0,9.8,-4.4,9.8,-9.8v-22.2l24.8,21.9c6.5,4.3,15.2,-0.3,15.2,-8.1v-59.5c0,-7.8,-8.7,-12.5,-15.2,-8.1Z"
-          style="fill:red; stroke:black; vector-effect:non-scaling-stroke;stroke-width:1px;" id="camera_door"
-          onclick="toggle_(this.id)" transform="matrix(-0.199536 -0.141923 0.141923 -0.199536 52.1953 489.701)"
-          class="gate" />
+          style="fill:red; stroke:black;" id="camera_door" onclick="toggle_(this.id)"
+          transform="matrix(-0.199536 -0.141923 0.141923 -0.199536 52.1953 489.701)" class="gate" />
         <path
           d="M-759.39585,1757.347837l-24.8,21.9v-22.2c0,-5.4,15.25602,80.528329,-9.8,-9.8h-68.4c-5.4,0,-9.8,4.4,-9.8,9.8v76.4c0,5.4,4.4,9.8,9.8,9.8h68.4c5.4,0,9.8,-4.4,9.8,-9.8v-22.2l24.8,21.9c6.5,4.3,15.2,-0.3,15.2,-8.1v-59.5c0,-7.8,-8.7,-12.5,-15.2,-8.1Z"
           id="camera_living" style="fill:red;" onclick="toggle_(this.id)"
@@ -395,14 +394,10 @@
 
         //connection attempt timeout in seconds
         timeout: 3,
-
         //Gets Called if the connection has successfully been established
         onSuccess: function () {
-          // alert("Connected");
-          //document.getElementById("message").innerHTML = '<p class ="message">Connected to HiveMQ!<h1>';
           console.log('Sucessfully connected');
         },
-
         //Gets Called if the connection could not be established
         onFailure: function (message) {
           alert("Connection failed: " + message.errorMessage);
@@ -418,22 +413,28 @@
         client.subscribe('home/value', { qos: 2 });
         client.subscribe('home/location', { qos: 2 });
         $("#connect").css("background-color", "#0fa20fdb");
-        var pid, bool;
-
+        var pid, bool, ebool, epid;
         //Gets called whenever you receive a message for your subscriptions
         client.onMessageArrived = function (message) {
-
-          //Do something with the push message you received
+          //Do something with the push message you received   
           if (message.destinationName == "home/value") {
-            bool = message.payloadString;
-            console.log("bool:" + bool);
+            ebool = message.payloadString;
+            if(message.payloadString!== undefined){
+              console.log("bool: ", decryptAES(ebool));
+              bool = decryptAES(ebool);
+            }
+            
           }
           if (message.destinationName == "home/location") {
-            console.log(message.payloadString)
-            pid = message.payloadString;
-            console.log("id:" + pid);
+            // console.log(message.payloadString)
+            epid = message.payloadString;
+            if(message.payloadString !== undefined){
+              console.log("id: ", decryptAES(epid));
+              pid = decryptAES(epid);
+            }
+            
             var element = document.getElementsByClassName(pid);
-            for (let i = 0; i < element.length; i++) {
+            for (let i = 0; i < element.length; i++) {                                     // Uncomment this !
               control(element[i].id, bool);
               console.log(element[i].id);
             }
@@ -454,38 +455,24 @@
         });
 
       });
+      const decryptAES = (text) => {
+        var key =<%= AESKey %>;
+        var encryptedHex = text;
+        // When ready to decrypt the hex string, convert it back to bytes
+        var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+
+        // The counter mode of operation maintains internal state, so to
+        // decrypt a new instance must be instantiated.
+        var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+        var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+
+        // Convert our bytes back into text
+        var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+        // console.log("decryptedText: ", decryptedText);
+        return decryptedText;
+      }
     </script>
-    <script>
-      // An example 128-bit key (16 bytes * 8 bits/byte = 128 bits)
-      var key = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-      // Convert text to bytes
-      var text = 'Text may be any length you wish, no padding is required.';
-      var textBytes = aesjs.utils.utf8.toBytes(text);
-
-      // The counter is optional, and if omitted will begin at 1
-      var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
-      var encryptedBytes = aesCtr.encrypt(textBytes);
-
-      // To print or store the binary data, you may convert it to hex
-      var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-      console.log("encryptedHex: ", encryptedHex);
-      // "a338eda3874ed884b6199150d36f49988c90f5c47fe7792b0cf8c7f77eeffd87
-      //  ea145b73e82aefcf2076f881c88879e4e25b1d7b24ba2788"
-
-      // When ready to decrypt the hex string, convert it back to bytes
-      var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
-
-      // The counter mode of operation maintains internal state, so to
-      // decrypt a new instance must be instantiated.
-      var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
-      var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-
-      // Convert our bytes back into text
-      var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-      console.log("decryptedText: ", decryptedText);
- // "Text may be any length you wish, no padding is required."
-    </script>
 
   </body>
 
