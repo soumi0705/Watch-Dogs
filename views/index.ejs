@@ -29,7 +29,7 @@
       <!-- <img src="./images/NXPt.gif" width="800" class="m-auto  " style="height: 12rem;object-fit: cover;" alt=""> -->
     </div>
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <a class="heading-tab flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
         <li class="button scene" id="connect"><i class="fas fa-home"></i>INITIATE HOME</li>
         <span class="text-white text-center ml-2 font-mono ">Soumitro Datta</span>
       </a>
@@ -71,6 +71,17 @@
           <button
             class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">know
             more</button>
+        </div>
+        <div id="aesMessage" class="hidden">
+          <div class="title-font  text-xl my-6 font-medium wdred font-mono">Ecryption safety installed, messages from MQTT are protected by AES Encryption</div>
+          <div class="encryption">
+            <div class="encrypted-output">Encrypted Message: </div>
+            <div id="encryptedOutput" class="aes-output">acrwerg23e4rr23fw45ew2efav2e3rvae</div>
+          </div>
+          <div class="encryption">
+            <div class="decrypted-output">Decryped Message: </div>
+            <div id="decryptedOutput" class="aes-output">Hello</div>
+          </div>
         </div>
       </div>
       <!-- <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
@@ -432,7 +443,21 @@
               console.log("id: ", decryptAES(epid));
               pid = decryptAES(epid);
             }
-            
+            if(pid !== undefined && bool !==undefined){
+              $('#decryptedOutput').text(`${pid}, ${bool}`);
+              $('#encryptedOutput').text(`${epid}, ${ebool}`);
+              $('#aesMessage').removeClass("hidden");
+            }else if(pid === undefined && bool !==undefined){
+              $('#decryptedOutput').text(`${bool}`);
+              $('#encryptedOutput').text(`${ebool}`);
+              $('#aesMessage').removeClass("hidden");
+            }else if(pid !== undefined && bool ===undefined){
+              $('#decryptedOutput').text(`${pid}`);
+              $('#encryptedOutput').text(`${epid}`);
+              $('#aesMessage').removeClass("hidden");
+            }else{
+              $('#aesMessage').addClass("hidden");
+            }
             var element = document.getElementsByClassName(pid);
             for (let i = 0; i < element.length; i++) {                                     // Uncomment this !
               control(element[i].id, bool);
