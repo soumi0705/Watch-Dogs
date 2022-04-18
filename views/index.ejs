@@ -296,10 +296,10 @@
       <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
         <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
 
-          <span class="ml-3 text-xl text-white font-mono">☢ WATCH DOGS</span>
+          <span class="ml-3 text-xl text-white font-mono">☢ SAFE HOME</span>
         </a>
         <p class="text-sm text-gray-200 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2021 by
-          2NUVS
+          Soumitro Datta
           <a href="https://twitter.com/knyttneve" class="text-gray-600 ml-1" rel="noopener noreferrer"
             target="_blank"></a>
         </p>
@@ -384,8 +384,8 @@
       }
 
       function checkScene() {
-        SCENE_BUTTONS.forEach(scene => { // Iterate through each scene
-          let sceneAccessoryArray = sceneAccessories[scene.id]; //Create a list of associated accessories for each scene
+        SCENE_BUTTONS.forEach(scene => { 
+          let sceneAccessoryArray = sceneAccessories[scene.id]; 
           switch (sceneAccessoryArray.every((node) => document.getElementById([node]).classList.contains("on"))) {
             case true:
               document.getElementById(scene.id).classList.add("on");
@@ -437,7 +437,7 @@
             
           }
           if (message.destinationName == "home/location") {
-            // console.log(message.payloadString)
+            console.log(message.payloadString)
             epid = message.payloadString;
             if(message.payloadString !== undefined){
               console.log("id: ", decryptAES(epid));
@@ -459,7 +459,7 @@
               $('#aesMessage').addClass("hidden");
             }
             var element = document.getElementsByClassName(pid);
-            for (let i = 0; i < element.length; i++) {                                     // Uncomment this !
+            for (let i = 0; i < element.length; i++) {                                     
               control(element[i].id, bool);
               console.log(element[i].id);
             }
@@ -483,17 +483,13 @@
       const decryptAES = (text) => {
         var key =<%= AESKey %>;
         var encryptedHex = text;
-        // When ready to decrypt the hex string, convert it back to bytes
+
         var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
 
-        // The counter mode of operation maintains internal state, so to
-        // decrypt a new instance must be instantiated.
         var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
         var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-
-        // Convert our bytes back into text
         var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-        // console.log("decryptedText: ", decryptedText);
+        console.log("decryptedText: ", decryptedText);
         return decryptedText;
       }
     </script>
