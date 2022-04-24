@@ -6,7 +6,16 @@ function toggle_(id) {
   else change = svg.style.fill == "red" ? "green" : "red";
   return console.log((svg.style.fill = change));
 }
-
+jQuery(function ($) {
+  $("#camera_bed")
+    .click(function () {
+      return false;
+    })
+    .dblclick(function () {
+      window.location = "http://localhost:5001/";
+      return false;
+    });
+});
 function control(id, bool) {
   console.log(id);
   console.log(typeof id);
