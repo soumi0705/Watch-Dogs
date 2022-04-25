@@ -409,6 +409,7 @@
         //Gets Called if the connection has successfully been established
         onSuccess: function () {
           console.log('Sucessfully connected');
+          MessageCaller();
         },
         //Gets Called if the connection could not be established
         onFailure: function (message) {
@@ -420,7 +421,8 @@
       //Attempt to connect
       client.connect(options);
 
-      $("#connect").on("click", function () {
+
+      const MessageCaller = () => {
         console.log("Message Called");
         client.subscribe('home/value', { qos: 2 });
         client.subscribe('home/location', { qos: 2 });
@@ -480,7 +482,10 @@
           client.send(message);
         });
 
-      });
+      }
+      $("#connect").on("click", MessageCaller);
+
+
       const decryptAES = (text) => {
         var key =<%= AESKey %>;
         var encryptedHex = text;

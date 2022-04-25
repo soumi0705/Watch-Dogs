@@ -1,0 +1,33 @@
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  border: 5px #a7a0a0 solid;
+  border-radius: 11px;
+}
+html {
+  background: #070707;
+}
+.vid_container {
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    background-color: #121212;
+    margin-bottom: 150px;
+}
+
+li#connect {
+  list-style: none;
+  background-color: #22c55e;
+  padding: 5px 20px;
+  border: 1px solid #22c55e;
+  border-radius: 3px;
+}
+footer.text-gray-600.body-font {
+    width: 100%;
+    bottom: 0;
+}
+h1.title-font {
+    color: white;
+    background-color: #dc2626;
+}
