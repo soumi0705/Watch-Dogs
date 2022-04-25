@@ -434,16 +434,13 @@
           if (message.destinationName == "home/value") {
             ebool = message.payloadString;
             if(message.payloadString!== undefined){
-              console.log("bool: ", decryptAES(ebool));
               bool = decryptAES(ebool);
             }
             
           }
           if (message.destinationName == "home/location") {
-            console.log(message.payloadString)
             epid = message.payloadString;
             if(message.payloadString !== undefined){
-              console.log("id: ", decryptAES(epid));
               pid = decryptAES(epid);
             }
             if(pid !== undefined && bool !==undefined){
@@ -464,7 +461,6 @@
             var element = document.getElementsByClassName(pid);
             for (let i = 0; i < element.length; i++) {                                     
               control(element[i].id, bool);
-              console.log(element[i].id);
             }
           }
         }
@@ -495,7 +491,6 @@
         var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
         var decryptedBytes = aesCtr.decrypt(encryptedBytes);
         var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-        console.log("decryptedText: ", decryptedText);
         return decryptedText;
       }
     </script>
