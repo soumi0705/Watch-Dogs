@@ -27,7 +27,7 @@ void setup()
   while (!client.connected())
   {
     Serial.println("Connecting to MQTT...");
-    if (client.connect("ESP8266"))
+    if (client.connect("Secure_Home_18BCE1136_ESP8266"))
     {
       Serial.println("Connected");
     }
@@ -63,8 +63,8 @@ void loop()
     digitalWrite(Status, LOW);
     Serial.println("Motion detected!");
     client.publish("sensors/bed-room/control", "HIGH");
-     client.publish("sensors/bed-room/control", "ON");
-    delay(1000);
+    client.publish("sensors/bed-room/control", "ON");
+    delay(10000);
   }
   else
   {
